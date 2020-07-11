@@ -1,0 +1,122 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.5.0.js"></script>
+</head>
+<body>
+
+                       @*This Code is for Get Request*@
+    @*<div> 
+        <h1>Hello From Index</h1>
+        <div>
+            <h2>Id</h2> - <h2 id="stdid"></h2>
+            <h2>Name</h2> - <h2 id="stdname"></h2>
+            <h2>Email</h2> - <h2 id="stdemail"></h2>
+        </div>
+
+        <input type="button" onclick="BtnClick()" value="Click ME"/>
+    </div>*@
+
+
+                             @*NOw This code is for Post Method*@
+
+
+
+
+    <div>
+        <form>
+            <input type="text" id="stdid" placeholder="ID" />
+            <br />
+            <br />
+            <input type="text" id="stdname" placeholder="Name" />
+            <br />
+            <br />
+            <input type="text" id="stdemail" placeholder="Email" />
+            <br />
+            <br />
+            <input type="button" value="Send Data" onclick="BtnClick()"/>
+        </form>
+    </div>
+</body>
+</html>
+
+@*<script>
+
+    Simple Ajax Function
+    function BtnClick() {
+        $.ajax({
+            url: "/Home/GetStudent",
+            method: "GET",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        })
+
+    }
+</script>*@
+               @*Now we will bind data*@
+
+@*<script>
+
+    function BtnClick() {
+        $.ajax({
+            url: "/Home/GetStudent",
+            method: "GET",
+            success: function (data) {
+                data = JSON.parse(data);
+
+                $("#stdid").text(data.id);
+                $("#stdname").text(data.name);
+                $("#stdemail").text(data.email);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        })
+
+    }
+</script>*@
+
+                    @*This Script is For Post Data From View To Controller*@
+<script>
+
+    function BtnClick() {
+        var id = $("#stdid").val();
+        var name = $("#stdname").val();
+        var email = $("#stdemail").val();
+        var obj = {
+            id : id,
+            name : name,
+            email: email
+        }
+        SubmitForm(obj);
+    }
+
+
+    function SubmitForm(obj) {
+        $.ajax({
+            url: "/Home/AddStudent",
+            method: "POST",
+            data :obj,
+            success: function (data) {
+                data = JSON.parse(data);
+                alert(data);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        })
+
+    }
+</script>
